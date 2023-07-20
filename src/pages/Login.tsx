@@ -9,19 +9,17 @@ function Login() {
 
   const handleEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
-    EmailValidation(email);
   };
 
   const handlePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
-    PasswordValidation(password);
   };
 
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    return EmailValidation(email) && PasswordValidation(password);
   };
+
+  const validation = (PasswordValidation(password) && EmailValidation(email));
 
   return (
     <form onSubmit={ handleSubmit }>
@@ -40,7 +38,7 @@ function Login() {
       />
       <Link to="/carteira">
         <button
-          disabled={ !PasswordValidation(password) && EmailValidation(email) }
+          disabled={ !validation }
         >
           **Entrar**
         </button>
