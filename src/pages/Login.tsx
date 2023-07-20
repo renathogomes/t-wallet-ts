@@ -42,7 +42,7 @@ function Login() {
         <button
           disabled={ !PasswordValidation(password) && EmailValidation(email) }
         >
-          Entrar
+          **Entrar**
         </button>
       </Link>
     </form>
