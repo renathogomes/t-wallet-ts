@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import EmailValidation from '../services/EmailValidation';
 import PasswordValidation from '../services/PasswordValidation';
 
@@ -37,11 +38,13 @@ function Login() {
         onChange={ handlePassword }
         value={ password }
       />
-      <button
-        disabled={ !PasswordValidation(password) && EmailValidation(email) }
-      >
-        Entrar
-      </button>
+      <Link to="/carteira">
+        <button
+          disabled={ !PasswordValidation(password) && EmailValidation(email) }
+        >
+          Entrar
+        </button>
+      </Link>
     </form>
   );
 }
