@@ -22,7 +22,7 @@ function Login() {
 
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(login(email, password));
+    dispatch(login(email));
     navigate('/carteira');
   };
 

@@ -4,7 +4,6 @@ import { USER_LOGIN } from '../actions';
 // Esse reducer será responsável por tratar as informações da pessoa usuária
 const INITIAL_STATE = {
   email: '',
-  password: '',
 };
 
 export const reducerUser = (state = INITIAL_STATE, action: AnyAction) => {
@@ -12,7 +11,6 @@ export const reducerUser = (state = INITIAL_STATE, action: AnyAction) => {
     case USER_LOGIN:
       return {
         email: action.email,
-        password: action.password,
       };
 
     default:
