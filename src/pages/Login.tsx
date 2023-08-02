@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import EmailValidation from '../services/EmailValidation';
 import PasswordValidation from '../services/PasswordValidation';
+import { login } from '../redux/actions';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   const handleEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -17,6 +22,8 @@ function Login() {
 
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
+    dispatch(login(email, password));
+    navigate('/carteira');
   };
 
   const validation = (PasswordValidation(password) && EmailValidation(email));
@@ -36,13 +43,12 @@ function Login() {
         onChange={ handlePassword }
         value={ password }
       />
-      <Link to="/carteira">
-        <button
-          disabled={ !validation }
-        >
-          **Entrar**
-        </button>
-      </Link>
+      <button
+        type="submit"
+        disabled={ !validation }
+      >
+        **Entrar**
+      </button>
     </form>
   );
 }
