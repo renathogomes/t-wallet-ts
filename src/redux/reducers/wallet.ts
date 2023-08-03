@@ -6,7 +6,7 @@ const INITIAL_STATE = {
   algumaCoisa: '',
 };
 
-export const reducerWallet = (state = INITIAL_STATE, action: AnyAction) => {
+export const wallet = (state = INITIAL_STATE, action: AnyAction) => {
   switch (action.type) {
     case 'XABLAU':
       return 'oi';

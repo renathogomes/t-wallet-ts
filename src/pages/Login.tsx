@@ -4,13 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import EmailValidation from '../services/EmailValidation';
 import PasswordValidation from '../services/PasswordValidation';
 import { login } from '../redux/actions';
+import { Dispatch } from '../types';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const dispatch = useDispatch();
+  const dispatch: Dispatch = useDispatch();
 
   const handleEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -20,13 +21,13 @@ function Login() {
     setPassword(event.target.value);
   };
 
+  const validation = (PasswordValidation(password) && EmailValidation(email));
+
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(login(email));
+    if (validation) dispatch(login(email));
     navigate('/carteira');
   };
-
-  const validation = (PasswordValidation(password) && EmailValidation(email));
 
   return (
     <form onSubmit={ handleSubmit }>

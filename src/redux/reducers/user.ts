@@ -6,11 +6,11 @@ const INITIAL_STATE = {
   email: '',
 };
 
-export const reducerUser = (state = INITIAL_STATE, action: AnyAction) => {
+export const user = (state = INITIAL_STATE, action: AnyAction) => {
   switch (action.type) {
     case USER_LOGIN:
       return {
-        email: action.email,
+        email: action.payload,
       };
 
     default:
