@@ -1,4 +1,5 @@
 import Header from '../components/Header';
+import WalletForm from '../components/WalletForm';
 
 function Wallet() {
   return (
@@ -7,6 +8,7 @@ function Wallet() {
         TrybeWallet
       </h1>
       <Header />
+      <WalletForm />
     </>
   );
 }
