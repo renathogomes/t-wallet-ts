@@ -8,7 +8,7 @@ function WalletForm() {
 
   useEffect(() => {
     dispatch(currencieWallet());
-  }, []);
+  }, [dispatch]);
 
   const { currencies } = useSelector((state: GeneralProps) => state.wallet);
 
