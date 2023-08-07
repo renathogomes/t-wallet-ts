@@ -12,7 +12,7 @@ export const wallet = (state = INITIAL_STATE, action: AnyAction) => {
     case ADD_COINS:
       return {
         ...state,
-        currencies: action.payload,
+        currencies: Object.keys(action.payload),
       };
 
     default:

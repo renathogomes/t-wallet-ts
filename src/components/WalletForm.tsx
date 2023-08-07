@@ -1,19 +1,18 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { currencieWallet } from '../redux/actions';
-import { Dispatch } from '../types';
-
-type GeneralStoreType = {
-  isLoading: boolean,
-};
+import { Dispatch, GeneralProps } from '../types';
 
 function WalletForm() {
   const dispatch: Dispatch = useDispatch();
-  const state = useSelector((state: GeneralStoreType) => state);
 
   useEffect(() => {
     dispatch(currencieWallet());
   }, []);
+
+  const { currencies } = useSelector((state: GeneralProps) => state.wallet);
+
+  console.log(currencies);
 
   return (
     <form>
@@ -23,21 +22,46 @@ function WalletForm() {
         data-testid="header-currency-field"
         id="value"
       />
-      <label htmlFor="coin">Forma de pagamento:</label>
+      <label htmlFor="description">Descrição:</label>
+      <input
+        type="number"
+        data-testid="description-input"
+        id="description"
+      />
+      <label htmlFor="coin">Moeda:</label>
       <select
         id="coin"
         data-testid="currency-input"
       >
-        <option value="valor do currency da API">Dinheiro</option>
-        <option value="valor do currency da API">Cartão de Crédito</option>
-        <option value="valor do currency da API">Cartão de Débito</option>
+        { currencies.map((coin) => (
+          <option
+            key={ coin }
+          >
+            {coin}
+
+          </option>
+        ))}
+
       </select>
-      <label htmlFor="description">Descrição:</label>
-      <input
-        type="text"
-        data-testid="description-input"
-        id="description"
-      />
+      <label htmlFor="method">Método de pagamento:</label>
+      <select
+        id="method"
+        data-testid="method-input"
+      >
+        <option>Dinheiro</option>
+        <option>Cartão de crédito</option>
+        <option>Cartão de débito</option>
+      </select>
+      <label htmlFor="tag">Categoria:</label>
+      <select
+        id="tag"
+        data-testid="tag-input"
+      >
+        <option>Alimentação</option>
+        <option>Lazer</option>
+        <option>Trabalho</option>
+        <option>Saúde</option>
+      </select>
     </form>
   );
 }

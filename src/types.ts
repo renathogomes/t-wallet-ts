@@ -6,6 +6,9 @@ export type GeneralProps = {
     email: string
     password: string
   }
+  wallet: {
+    currencies: []
+  }
 };
 
 export type Dispatch = ThunkDispatch<GeneralProps, null, AnyAction>;

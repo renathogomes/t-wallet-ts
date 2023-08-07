@@ -6,7 +6,7 @@ export const USER_LOGIN = 'USER_LOGIN';
 export const CURRENCIES_WALLET = 'CURRENCIES_WALLET';
 export const ADD_COINS = 'ADD_COINS';
 
-// Actions Normais
+// Actions Normais (Acrions Creators)
 export const login = (email: string) => ({
   type: USER_LOGIN,
   payload: email,
