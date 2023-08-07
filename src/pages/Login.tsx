@@ -48,7 +48,7 @@ function Login() {
         type="submit"
         disabled={ !validation }
       >
-        **Entrar**
+        Entrar
       </button>
     </form>
   );

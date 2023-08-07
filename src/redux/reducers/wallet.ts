@@ -1,7 +1,7 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 
 import { AnyAction } from 'redux';
-import { CURRENCIES_WALLET } from '../actions';
+import { ADD_COINS } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -9,10 +9,10 @@ const INITIAL_STATE = {
 
 export const wallet = (state = INITIAL_STATE, action: AnyAction) => {
   switch (action.type) {
-    case CURRENCIES_WALLET:
+    case ADD_COINS:
       return {
         ...state,
-        payload: [action.USDT],
+        currencies: action.payload,
       };
 
     default:

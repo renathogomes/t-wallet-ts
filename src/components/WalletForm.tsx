@@ -1,19 +1,19 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { currencieWallet } from '../redux/actions';
 import { Dispatch } from '../types';
 
-// type GeneralStoreType = {
-//   currency: []
-// };
+type GeneralStoreType = {
+  isLoading: boolean,
+};
 
 function WalletForm() {
   const dispatch: Dispatch = useDispatch();
-  // const state = useSelector((state) => state);
+  const state = useSelector((state: GeneralStoreType) => state);
 
-  // useEffect(() => {
-  //   dispatch(currencieWallet());
-  // }, []);
+  useEffect(() => {
+    dispatch(currencieWallet());
+  }, []);
 
   return (
     <form>
@@ -28,7 +28,7 @@ function WalletForm() {
         id="coin"
         data-testid="currency-input"
       >
-        <option value="valor do currency">Dinheiro</option>
+        <option value="valor do currency da API">Dinheiro</option>
         <option value="valor do currency da API">Cartão de Crédito</option>
         <option value="valor do currency da API">Cartão de Débito</option>
       </select>

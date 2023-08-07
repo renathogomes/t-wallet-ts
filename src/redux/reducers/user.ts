@@ -10,6 +10,7 @@ export const user = (state = INITIAL_STATE, action: AnyAction) => {
   switch (action.type) {
     case USER_LOGIN:
       return {
+        ...state,
         email: action.payload,
       };
 

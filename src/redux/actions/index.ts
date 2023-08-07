@@ -4,11 +4,17 @@ import { url } from '../../url';
 // Actions Types
 export const USER_LOGIN = 'USER_LOGIN';
 export const CURRENCIES_WALLET = 'CURRENCIES_WALLET';
+export const ADD_COINS = 'ADD_COINS';
 
-// Actions
+// Actions Normais
 export const login = (email: string) => ({
   type: USER_LOGIN,
   payload: email,
+});
+
+export const setCoins = (payload: string[]) => ({
+  type: ADD_COINS,
+  payload,
 });
 
 export const currentCode = () => ({
@@ -18,10 +24,11 @@ export const currentCode = () => ({
 // Actions Thunks
 export const currencieWallet = () => {
   return async (dispatch: Dispatch) => {
-    // dispatch(currencieWallet());
     const response = await fetch(url);
     const data = await response.json();
 
-    console.log(data.USDT);
+    delete data.USDT;
+    console.log(data);
+    dispatch(setCoins(data));
   };
 };
