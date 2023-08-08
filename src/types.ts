@@ -8,7 +8,19 @@ export type GeneralProps = {
   }
   wallet: {
     currencies: []
-  }
-};
+    expenses: [{
+      id: number,
+      value: number,
+      description: string,
+      currency: string,
+      method: string,
+      tag: string,
+      exchangeRates: {
+        USD: {
+          code: string,
+          name: string,
+          ask: string,
+        } } }];
+  } };
 
 export type Dispatch = ThunkDispatch<GeneralProps, null, AnyAction>;
