@@ -1,19 +1,18 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Dispatch, GeneralProps } from '../types';
-import { currencieWallet, setExpense } from '../redux/actions';
-
-type StateProp = string | number;
+import { Dispatch, ExpenseTest, StateProps } from '../types';
+import { addExpense, currencieWallet, setTotal } from '../redux/actions';
 
 function WalletForm() {
   const dispatch: Dispatch = useDispatch();
-  const [value, setValue] = useState<StateProp>(0);
-  const [describe, setDescribe] = useState('');
-  const [coins, setCoins] = useState<string>('USD');
+  const [value, setValue] = useState('');
+  const [description, setDescription] = useState('');
+  const [currency, setCurrency] = useState<string>('USD');
   const [method, setMethod] = useState('Dinheiro');
-  const [category, setCategory] = useState('Alimentação');
+  const [tag, setTag] = useState('Alimentação');
+  const [count, setCount] = useState(0);
 
-  const { currencies } = useSelector((state: GeneralProps) => state.wallet);
+  const { wallet } = useSelector((state: StateProps) => state);
 
   useEffect(() => {
     dispatch(currencieWallet());
@@ -21,18 +20,26 @@ function WalletForm() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (value && describe) { // Verificação de campos obrigatórios
-      const INITIAL_EXPENSE = {
-        expenses: {
-          value,
-          describe,
-          coins,
-          method,
-          category,
-        },
-      };
-      dispatch(setExpense(INITIAL_EXPENSE));
-    }
+    const expense: ExpenseTest = {
+      id: count,
+      value,
+      description,
+      currency,
+      method,
+      tag,
+    };
+
+    setCount((countId) => countId + 1);
+    dispatch(addExpense(expense));
+    dispatch(setTotal(value));
+
+    setValue('');
+    setDescription('');
+    setCurrency('USD');
+    setMethod('Dinheiro');
+    setTag('Alimentação');
+
+    // }
   };
 
   return (
@@ -52,23 +59,22 @@ function WalletForm() {
         type="text"
         data-testid="description-input"
         id="description"
-        value={ describe }
-        onChange={ (event) => setDescribe(event.target.value) }
+        value={ description }
+        onChange={ (event) => setDescription(event.target.value) }
       />
       {/* Campo para adicionar qual moeda será registrada a despesa */}
       <label htmlFor="coin">Moeda:</label>
       <select
         id="coin"
         data-testid="currency-input"
-        value={ coins }
-        onChange={ (event) => setCoins(event.target.value) }
+        value={ currency }
+        onChange={ (event) => setCurrency(event.target.value) }
       >
-        { currencies.map((gold) => (
+        { wallet.currencies.map((gold:any) => (
           <option
             key={ gold }
           >
             {gold}
-
           </option>
         ))}
 
@@ -90,8 +96,8 @@ function WalletForm() {
       <select
         id="tag"
         data-testid="tag-input"
-        value={ category }
-        onChange={ (event) => setCategory(event.target.value) }
+        value={ tag }
+        onChange={ (event) => setTag(event.target.value) }
       >
         <option>Alimentação</option>
         <option>Lazer</option>

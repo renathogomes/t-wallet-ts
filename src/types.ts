@@ -1,26 +1,42 @@
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 
-export type GeneralProps = {
-  use: {
-    email: string
-    password: string
-  }
-  wallet: {
-    currencies: []
-    expenses: [{
-      id: number,
-      value: number,
-      description: string,
-      currency: string,
-      method: string,
-      tag: string,
-      exchangeRates: {
-        USD: {
-          code: string,
-          name: string,
-          ask: string,
-        } } }];
-  } };
+export type ExpenseType = {
+  value: string,
+  description: string,
+  currency: string,
+  method: string,
+  tag: string,
+};
 
-export type Dispatch = ThunkDispatch<GeneralProps, null, AnyAction>;
+export type NewExpense = ExpenseType & {
+  exchangeRates: {
+    [key: string]: {
+      ask: string,
+      name: string,
+    } }
+};
+
+export type Expense = NewExpense & {
+  id: number,
+};
+
+export type ExpenseTest = ExpenseType & {
+  id: number,
+};
+
+export type UserType = {
+  email: string
+};
+
+export type WalletProps = {
+  currencies: string[]
+  expenses: Expense[],
+};
+
+export type StateProps = {
+  user: UserType,
+  wallet: WalletProps,
+};
+
+export type Dispatch = ThunkDispatch<StateProps, null, AnyAction>;

@@ -1,10 +1,11 @@
-import { Dispatch } from '../../types';
-import { url } from '../../url';
+import { fetchApi } from '../../services/fetchApi';
+import { Dispatch, ExpenseType, NewExpense } from '../../types';
 
 // Actions Types
 export const USER_LOGIN = 'USER_LOGIN';
 export const ADD_COINS = 'ADD_COINS';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const ADD_TOTAL = 'ADD_TOTAL';
 
 // Actions Normais (Acrions Creators)
 export const login = (email: string) => ({
@@ -17,34 +18,30 @@ export const setCoins = (payload: string[]) => ({
   payload,
 });
 
-export const setExpense = (payload: any) => ({
+export const setExpense = (payload: NewExpense) => ({
   type: ADD_EXPENSE,
-  expenses: {
-    value: payload.expenses.value,
-    describe: payload.expenses.describe,
-    coins: payload.expenses.coins,
-    method: payload.expenses.method,
-    category: payload.expenses.category,
-  },
+  payload,
 });
 
-export const addExpense = () => {
-  return async (dispatch: Dispatch) => {
-    const response = await fetch(url);
-    const data = await response.json();
+export const setTotal = (value: string) => ({
+  type: ADD_TOTAL,
+  value,
+});
 
-    console.log(data);
-    dispatch(setExpense(data));
+export const addExpense = (expense: ExpenseType) => {
+  return async (dispatch: Dispatch) => {
+    const coins = await fetchApi();
+
+    dispatch(setExpense({ ...expense, exchangeRates: coins }));
   };
 };
 
 // Actions Thunks
 export const currencieWallet = () => {
   return async (dispatch: Dispatch) => {
-    const response = await fetch(url);
-    const data = await response.json();
+    const data = await fetchApi();
+    const coins = Object.keys(data);
 
-    delete data.USDT;
-    dispatch(setCoins(data));
+    dispatch(setCoins(coins));
   };
 };
