@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, ExpenseTest, StateProps } from '../types';
-import { addExpense, currencieWallet, setId, setAsk } from '../redux/actions';
+import { addExpense, currencieWallet, setId } from '../redux/actions';
 
 function WalletForm() {
   const dispatch: Dispatch = useDispatch();
