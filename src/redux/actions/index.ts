@@ -5,6 +5,7 @@ import { Dispatch, ExpenseType, NewExpense } from '../../types';
 export const USER_LOGIN = 'USER_LOGIN';
 export const ADD_COINS = 'ADD_COINS';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const ADD_ID = 'ADD_ID';
 export const ADD_TOTAL = 'ADD_TOTAL';
 
 // Actions Normais (Acrions Creators)
@@ -23,15 +24,21 @@ export const setExpense = (payload: NewExpense) => ({
   payload,
 });
 
-export const setTotal = (value: string) => ({
+export const setId = (countID: number) => ({
+  type: ADD_ID,
+  id: countID,
+});
+
+export const setAsk = (payload: number) => ({
   type: ADD_TOTAL,
-  value,
+  payload,
 });
 
 export const addExpense = (expense: ExpenseType) => {
   return async (dispatch: Dispatch) => {
     const coins = await fetchApi();
-
+    const askeData = ((Number(expense.value) * coins[expense.currency].ask));
+    dispatch(setAsk(askeData));
     dispatch(setExpense({ ...expense, exchangeRates: coins }));
   };
 };

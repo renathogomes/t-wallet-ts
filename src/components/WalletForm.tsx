@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, ExpenseTest, StateProps } from '../types';
-import { addExpense, currencieWallet, setTotal } from '../redux/actions';
+import { addExpense, currencieWallet, setId, setAsk } from '../redux/actions';
 
 function WalletForm() {
   const dispatch: Dispatch = useDispatch();
@@ -29,9 +29,10 @@ function WalletForm() {
       tag,
     };
 
-    setCount((countId) => countId + 1);
+    setCount(count + 1);
+    // dispatch(setTotal(Number(value)));
+    dispatch(setId(count));
     dispatch(addExpense(expense));
-    dispatch(setTotal(value));
 
     setValue('');
     setDescription('');
