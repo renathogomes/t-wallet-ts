@@ -4,9 +4,7 @@ import { StateProps } from '../types';
 function Header() {
   const generalStore = useSelector((state: StateProps) => state);
   const { wallet } = generalStore;
-  const { expenses, total } = wallet;
-  console.log(expenses);
-  console.log(total);
+  const { total } = wallet;
 
   return (
     <>
