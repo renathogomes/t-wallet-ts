@@ -29,7 +29,7 @@ export const wallet = (state = INITIAL_STATE, action: AnyAction) => {
     case ADD_TOTAL:
       return {
         ...state,
-        total: parseFloat(action.payload).toFixed(2),
+        total: state.total + action.payload,
       };
 
     default:

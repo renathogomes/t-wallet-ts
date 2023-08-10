@@ -4,19 +4,19 @@ import { StateProps } from '../types';
 function Header() {
   const generalStore = useSelector((state: StateProps) => state);
   const { wallet } = generalStore;
-  const { expenses } = wallet;
-  console.log(wallet);
-  console.log(expenses.map((asked) => asked.currency));
+  const { expenses, total } = wallet;
+  console.log(expenses);
+  console.log(total);
 
   return (
     <>
       <h2 data-testid="email-field">{`Email: ${generalStore.user.email}`}</h2>
       <h2 data-testid="total-field">
-        {/* { wallet.expenses.map((count) => <span key={}> { count } </span>) } */}
+        {total}
       </h2>
-      <span data-testid="header-currency-field">
+      <h2 data-testid="header-currency-field">
         BRL
-      </span>
+      </h2>
     </>
   );
 }

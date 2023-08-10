@@ -32,6 +32,7 @@ export type UserType = {
 export type WalletProps = {
   currencies: string[]
   expenses: Expense[],
+  total: number,
 };
 
 export type StateProps = {
