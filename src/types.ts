@@ -9,7 +9,12 @@ export type ExpenseType = {
   tag: string,
 };
 
-export type NewExpense = ExpenseType & {
+export type TableExpenseType = ExpenseType & {
+  name: string,
+  ask: string,
+};
+
+export type NewExpense = TableExpenseType & {
   exchangeRates: {
     [key: string]: {
       ask: string,

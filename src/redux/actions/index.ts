@@ -37,14 +37,21 @@ export const setAsk = (payload: number) => ({
 export const addExpense = (expense: ExpenseType) => {
   return async (dispatch: Dispatch) => {
     const coins = await fetchApi();
-    const decim = parseFloat(expense.value);
-    const final = decim * coins[expense.currency].ask;
-    const pronto = String(final);
+    const numberValue = parseFloat(expense.value);
+    const askValue = coins[expense.currency].ask;
+    const calcValue = numberValue * askValue;
+    const pronto = String(calcValue);
     const asda = parseFloat(pronto).toFixed(2);
     const num = parseFloat(asda);
+    const nameCurrency = coins[expense.currency].name;
 
     dispatch(setAsk(num));
-    dispatch(setExpense({ ...expense, exchangeRates: coins }));
+    dispatch(setExpense({
+      ...expense,
+      name: nameCurrency,
+      ask: askValue,
+      exchangeRates: coins,
+    }));
   };
 };
 

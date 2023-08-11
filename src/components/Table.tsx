@@ -4,22 +4,21 @@ import { StateProps } from '../types';
 function Table() {
   const { wallet } = useSelector((state: StateProps) => state);
   const { expenses } = wallet;
-  console.log(expenses);
 
   return (
     <>
       <div>Table</div>
       <table>
         <thead>
-          <td>Descrição</td>
-          <td>Tag</td>
-          <td>Método de pagamento</td>
-          <td>Valor</td>
-          <td>Moeda</td>
-          <td>Câmbio utilizado</td>
-          <td>Valor convertido</td>
-          <td>Moeda de conversão</td>
-          <td>Editar/Excluir</td>
+          <th>Descrição</th>
+          <th>Tag</th>
+          <th>Método de pagamento</th>
+          <th>Valor</th>
+          <th>Moeda</th>
+          <th>Câmbio utilizado</th>
+          <th>Valor convertido</th>
+          <th>Moeda de conversão</th>
+          <th>Editar/Excluir</th>
         </thead>
         <tbody>
           {expenses.map(({
@@ -29,13 +28,18 @@ function Table() {
             method,
             tag,
             value,
+            name,
+            ask,
           }) => (
             <tr key={ id }>
               <td>{description}</td>
               <td>{tag}</td>
               <td>{method}</td>
-              <td>{value}</td>
+              <td>{parseFloat(value).toFixed(2)}</td>
               <td>{currency}</td>
+              <td>{name}</td>
+              <td>{parseFloat(ask).toFixed(2)}</td>
+              <td>Real</td>
             </tr>
           ))}
         </tbody>
