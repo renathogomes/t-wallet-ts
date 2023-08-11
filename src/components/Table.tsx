@@ -38,8 +38,18 @@ function Table() {
               <td>{parseFloat(value).toFixed(2)}</td>
               <td>{currency}</td>
               <td>{name}</td>
-              <td>{parseFloat(ask).toFixed(2)}</td>
+              <td>{(parseFloat(ask) * parseFloat(value)).toFixed(2)}</td>
               <td>Real</td>
+              <td>
+                <button>Editar</button>
+              </td>
+              <td>
+                <button
+                  data-testid="delete-btn"
+                >
+                  Delete
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
