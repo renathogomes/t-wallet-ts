@@ -30,7 +30,6 @@ function WalletForm() {
     };
 
     setCount(count + 1);
-    // dispatch(setTotal(Number(value)));
     dispatch(setId(count));
     dispatch(addExpense(expense));
 

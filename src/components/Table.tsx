@@ -1,9 +1,16 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useCallback } from 'react';
 import { StateProps } from '../types';
+import { removeExpense } from '../redux/actions';
 
 function Table() {
   const { wallet } = useSelector((state: StateProps) => state);
   const { expenses } = wallet;
+  const dispatch = useDispatch();
+
+  const handleDelete = useCallback((id: number) => {
+    dispatch(removeExpense(id));
+  }, [dispatch]);
 
   return (
     <>
@@ -21,31 +28,25 @@ function Table() {
           <th>Editar/Excluir</th>
         </thead>
         <tbody>
-          {expenses.map(({
-            currency,
-            description,
-            id,
-            method,
-            tag,
-            value,
-            name,
-            ask,
-          }) => (
-            <tr key={ id }>
-              <td>{description}</td>
-              <td>{tag}</td>
-              <td>{method}</td>
-              <td>{parseFloat(value).toFixed(2)}</td>
-              <td>{currency}</td>
-              <td>{name}</td>
-              <td>{(parseFloat(ask) * parseFloat(value)).toFixed(2)}</td>
+          {expenses.map((item) => (
+            <tr key={ item.id }>
+              <td>{item.description}</td>
+              <td>{item.tag}</td>
+              <td>{item.method}</td>
+              <td>{Number(item.value).toFixed(2)}</td>
+              <td>{item.currency}</td>
+              <td>{item.exchangeRates[item.currency].name}</td>
+              <td>
+                {(Number(item.exchangeRates[item.currency].ask)
+                * Number(item.value)).toFixed(2)}
+
+              </td>
               <td>Real</td>
               <td>
                 <button>Editar</button>
-              </td>
-              <td>
                 <button
                   data-testid="delete-btn"
+                  onClick={ () => handleDelete(item.id) }
                 >
                   Delete
                 </button>

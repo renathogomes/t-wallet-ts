@@ -14,7 +14,7 @@ export type TableExpenseType = ExpenseType & {
   ask: string,
 };
 
-export type NewExpense = TableExpenseType & {
+export type NewExpense = ExpenseType & {
   exchangeRates: {
     [key: string]: {
       ask: string,

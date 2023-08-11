@@ -7,6 +7,7 @@ export const ADD_COINS = 'ADD_COINS';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const ADD_ID = 'ADD_ID';
 export const ADD_TOTAL = 'ADD_TOTAL';
+export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
 
 // Actions Normais (Acrions Creators)
 export const login = (email: string) => ({
@@ -34,6 +35,11 @@ export const setAsk = (payload: number) => ({
   payload,
 });
 
+export const removeExpense = (id: number) => ({
+  type: REMOVE_EXPENSE,
+  payload: id,
+});
+
 export const addExpense = (expense: ExpenseType) => {
   return async (dispatch: Dispatch) => {
     const coins = await fetchApi();
@@ -43,13 +49,10 @@ export const addExpense = (expense: ExpenseType) => {
     const pronto = String(calcValue);
     const asda = parseFloat(pronto).toFixed(2);
     const num = parseFloat(asda);
-    const nameCurrency = coins[expense.currency].name;
 
     dispatch(setAsk(num));
     dispatch(setExpense({
       ...expense,
-      name: nameCurrency,
-      ask: askValue,
       exchangeRates: coins,
     }));
   };

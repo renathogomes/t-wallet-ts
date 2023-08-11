@@ -1,7 +1,8 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 
 import { AnyAction } from 'redux';
-import { ADD_COINS, ADD_EXPENSE, ADD_ID, ADD_TOTAL } from '../actions';
+import { ADD_COINS, ADD_EXPENSE, ADD_ID, ADD_TOTAL, REMOVE_EXPENSE } from '../actions';
+import { ExpenseTest } from '../../types';
 
 const INITIAL_STATE = {
   total: 0,
@@ -30,6 +31,12 @@ export const wallet = (state = INITIAL_STATE, action: AnyAction) => {
       return {
         ...state,
         total: state.total + action.payload,
+      };
+    case REMOVE_EXPENSE:
+      return {
+        ...state,
+        expenses: state.expenses
+          .filter((expense: ExpenseTest) => expense.id !== action.payload),
       };
 
     default:

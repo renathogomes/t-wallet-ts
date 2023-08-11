@@ -10,7 +10,7 @@ function Header() {
     <>
       <h2 data-testid="email-field">{`Email: ${generalStore.user.email}`}</h2>
       <h2 data-testid="total-field">
-        {total}
+        {total.toFixed(2)}
       </h2>
       <h2 data-testid="header-currency-field">
         BRL
