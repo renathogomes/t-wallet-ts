@@ -35,6 +35,8 @@ export const wallet = (state = INITIAL_STATE, action: AnyAction) => {
     case REMOVE_EXPENSE:
       return {
         ...state,
+        // total: state.total - (state.expenses
+        //   .find((idExpense: ExpenseTest) => idExpense.id === action.payload)),
         expenses: state.expenses
           .filter((expense: ExpenseTest) => expense.id !== action.payload),
       };
